@@ -1,6 +1,6 @@
 package br.com.concrete.desafio.controller;
 
-import br.com.concrete.desafio.User;
+import br.com.concrete.desafio.model.User;
 import br.com.concrete.desafio.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/users")
-public class UserController {
+public class UserController{
 
     @Autowired
     private UserService userService;

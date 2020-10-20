@@ -1,18 +1,15 @@
 package br.com.concrete.desafio.controller;
 
-import br.com.concrete.desafio.Phone;
-import br.com.concrete.desafio.User;
+import br.com.concrete.desafio.model.Phone;
+import br.com.concrete.desafio.model.User;
 import br.com.concrete.desafio.service.UserService;
-import org.assertj.core.util.Arrays;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -20,7 +17,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import javax.servlet.ServletContext;
 import java.util.ArrayList;
 
 @WebMvcTest
