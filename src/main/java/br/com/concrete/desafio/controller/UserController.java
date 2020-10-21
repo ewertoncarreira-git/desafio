@@ -20,4 +20,10 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).body(createUser);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<User> profile(@PathVariable Long id, @RequestHeader("Authorization") String token){
+        User validUser = userService.validUser(id, token);
+//        return ResponseEntity.ok(null);
+        return ResponseEntity.status(HttpStatus.OK).body(validUser);
+    }
 }
