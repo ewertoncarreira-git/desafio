@@ -1,5 +1,6 @@
 package br.com.concrete.desafio.service;
 
+import br.com.concrete.desafio.handler.UserNotFoundException;
 import br.com.concrete.desafio.model.Phone;
 import br.com.concrete.desafio.model.User;
 import br.com.concrete.desafio.repository.UserRepository;
@@ -31,5 +32,19 @@ public class UserServiceImpl implements UserService {
         user.setToken(UUID.randomUUID().toString());
 
         return userRepository.save(user);
+    }
+
+    @Override
+    public User login(User user) {
+        User userByEmail = userRepository.findByEmail(user.getEmail());
+
+        if (userByEmail == null || !user.getPassword().equals(userByEmail.getPassword())) {
+            throw new UserNotFoundException("Usuário e/ou senha inválidos");
+        }
+
+        userByEmail.setLast_login(LocalDateTime.now());
+        userByEmail.setToken(UUID.randomUUID().toString());
+
+        return  userRepository.save(userByEmail);
     }
 }

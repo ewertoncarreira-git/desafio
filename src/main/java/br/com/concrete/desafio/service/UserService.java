@@ -5,4 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UserService  {
         User save(User user);
+
+        User login(User user);
 }

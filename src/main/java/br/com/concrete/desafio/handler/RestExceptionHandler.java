@@ -13,4 +13,11 @@ public class RestExceptionHandler {
         ErrorMessage errorMessage = new ErrorMessage(runtimeException.getMessage());
         return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(errorMessage);
     }
+
+    @ExceptionHandler(UserNotFoundException.class)
+    public ResponseEntity<ErrorMessage> handlerUserNotFundException(UserNotFoundException userNotFoundException) {
+        ErrorMessage errorMessage = new ErrorMessage(userNotFoundException.getMessage());
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorMessage);
+    }
+
 }
