@@ -17,6 +17,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User save(User user) {
+        if (userRepository.existsByEmail(user.getEmail())) {
+            throw new RuntimeException("E-mail já existente");
+        }
+
         for (Phone phone : user.getPhones()) {
             phone.setUser(user);
         }
@@ -28,6 +32,4 @@ public class UserServiceImpl implements UserService {
 
         return userRepository.save(user);
     }
-
-
 }
