@@ -12,6 +12,7 @@
 Efetua o cadastro de usuarios, efetuando as validações necessárias
 recebe campos e lista de objetos no seguinte formato:
 
+# Markdown
 ...
 {        
     "name": "João da Silva",
