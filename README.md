@@ -24,20 +24,19 @@ recebe campos e lista de objetos no seguinte formato:
         }
      ]     
 } 
-...
+
 
 /login
 
 Efetuar o login o usuario, recebe um objeto com email e senha e efetua as devidas validações.
 
-...
-{         
+
+> {         
     "email": "joao@silva.org",
     "password": "hunter2",   
 } 
-...
 
-/users/1
+/users/id
 
 Acessa o perfil do usuario via token.
 Token repassado no Header do documento.
