@@ -9,7 +9,7 @@
 
 /users
 
-Efetua o cadastro de usuarios, efetuando as validações necessárias
+Cadastro de usuarios: efetua as validações necessárias
 recebe campos e lista de objetos no seguinte formato:
 
 
@@ -28,7 +28,7 @@ recebe campos e lista de objetos no seguinte formato:
 
 /login
 
-Efetuar o login o usuario, recebe um objeto com email e senha e efetua as devidas validações.
+Login o usuario, recebe um objeto com email e senha e executa as devidas validações.
 
 
 > {         
@@ -40,9 +40,3 @@ Efetuar o login o usuario, recebe um objeto com email e senha e efetua as devida
 
 Acessa o perfil do usuario via token.
 Token repassado no Header do documento.
-
-
-
-
-
-
