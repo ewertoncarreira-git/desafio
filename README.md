@@ -12,6 +12,7 @@
 Efetua o cadastro de usuarios, efetuando as validações necessárias
 recebe campos e lista de objetos no seguinte formato:
 
+...
 {        
     "name": "João da Silva",
     "email": "joao@silva.org",
@@ -23,15 +24,18 @@ recebe campos e lista de objetos no seguinte formato:
         }
      ]     
 } 
+...
 
 /login
 
 Efetuar o login o usuario, recebe um objeto com email e senha e efetua as devidas validações.
 
+...
 {         
     "email": "joao@silva.org",
     "password": "hunter2",   
 } 
+...
 
 /users/1
 
