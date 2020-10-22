@@ -20,7 +20,6 @@ public class Phone {
     @JsonBackReference
     private User user;
 
-    @Deprecated
     public Phone() {
 
     }

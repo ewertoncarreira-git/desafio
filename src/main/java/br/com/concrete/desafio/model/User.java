@@ -28,7 +28,6 @@ public class User {
     @Cascade(org.hibernate.annotations.CascadeType.ALL)
     private List<Phone> phones;
 
-    @Deprecated
     public User() {
 
     }

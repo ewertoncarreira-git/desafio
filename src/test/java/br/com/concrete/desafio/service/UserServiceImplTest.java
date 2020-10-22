@@ -1,5 +1,6 @@
 package br.com.concrete.desafio.service;
 
+import br.com.concrete.desafio.handler.UserNotFoundException;
 import br.com.concrete.desafio.model.Phone;
 import br.com.concrete.desafio.model.User;
 import br.com.concrete.desafio.repository.UserRepository;
@@ -25,6 +26,8 @@ class UserServiceImplTest {
     @Autowired
     private UserService userService;
 
+//    private java.util.Optional<User> Optional;
+
     @Test
     public void deveValidarUsuarioRetornadoQuandoSalvoComSucesso() {
         Phone phone = new Phone();
@@ -35,7 +38,7 @@ class UserServiceImplTest {
 
         User user = new User(
                 "Ewerton Carreira"
-                , "ewerton.l.carreira@accenture.com"
+                , "ewerton.l.carreira@com"
                 , "hunter2"
                 , LocalDateTime.now()
                 , LocalDateTime.now()
@@ -63,7 +66,7 @@ class UserServiceImplTest {
 
         User user = new User(
                 "Ewerton Carreira"
-                , "ewerton.l.carreira@accenture.com"
+                , "ewerton.l.carreira@.com"
                 , "hunter2"
                 , LocalDateTime.now()
                 , LocalDateTime.now()
@@ -80,4 +83,103 @@ class UserServiceImplTest {
         });
     }
 
+    @Test
+    public void deveLancarUserNotFoundExceptionQuandoTokenNaoCadastrado() {
+        User user = new User();
+        user.setId(1L);
+        user.setToken("12345776iuoidjjhjdgsduyfib7868776%&$%#nkjGHS");
+
+        Mockito.when(userRepository.findById(any())).thenReturn(java.util.Optional.of(user));
+
+        Assertions.assertThrows(UserNotFoundException.class, () -> {
+            userService.validUser(user.getId(), "12345776iuoidjjhjdgsduyfib7868776%&$%#nkjG");
+        });
+    }
+
+    @Test
+    public void deveLancarUserNotFoundExceptionQuandoSessaoInvalida() {
+        User user = new User();
+        user.setId(1L);
+        user.setLast_login(LocalDateTime.parse("2020-10-21T14:15:50.239"));
+        user.setToken("12345776iuoidjjhjdgsduyfib7868776%&$%#nkjGHS");
+
+        Mockito.when(userRepository.findById(any())).thenReturn(java.util.Optional.of(user));
+
+        Assertions.assertThrows(UserNotFoundException.class, () -> {
+            userService.validUser(user.getId(), "12345776iuoidjjhjdgsduyfib7868776%&$%#nkjG");
+        });
+    }
+
+    @Test
+    public void deveLancarUserNotFoundExceptionQuandoTokenNaoExiste() {
+        User user = new User();
+        user.setId(1L);
+        user.setToken("12345776iuoidjjhjdgsduyfib7868776%&$%#nkjGHS");
+
+        Mockito.when(userRepository.findById(any())).thenReturn(java.util.Optional.of(user));
+
+        Assertions.assertThrows(UserNotFoundException.class, () -> {
+            userService.validUser(user.getId(), "");
+        });
+    }
+
+    @Test
+    public void deveValidarProfileOk() {
+        Phone phone = new Phone();
+        phone.setDdd("91");
+        phone.setNumber("2222-3333");
+        ArrayList<Phone> phoneList = new ArrayList<>();
+        phoneList.add(phone);
+
+        User user = new User(
+                "Ewerton Carreira"
+                , "ewerton.l.carreira@.com"
+                , "hunter2"
+                , LocalDateTime.now()
+                , LocalDateTime.now()
+                , LocalDateTime.now()
+                , phoneList
+                , "12345776iuoidjjhjdgsduyfib7868776%&$%#nkjGH"
+        );
+        user.setId(1L);
+
+        Mockito.when(userRepository.findById(any())).thenReturn(java.util.Optional.of(user));
+
+        User validatedUser = userService.validUser(1L, "12345776iuoidjjhjdgsduyfib7868776%&$%#nkjGH");
+
+        assertEquals("Ewerton Carreira", validatedUser.getName());
+    }
+
+    @Test
+    public void deveLancarUserNotFoundExceptionQuandoEmailNaoExistir() {
+        User user = new User();
+        user.setId(1L);
+        user.setEmail("email1a@com");
+        user.setPassword("hunted2");
+
+        Mockito.when(userRepository.findByEmail(any())).thenReturn(null);
+
+        Assertions.assertThrows(UserNotFoundException.class, () -> {
+            userService.login(user);
+        });
+    }
+
+    @Test
+    public void deveLancarUserNotFoundExceptionQuandoSenhaNaoBater() {
+        User mockedUser = new User();
+        mockedUser.setId(2L);
+        mockedUser.setEmail("email1a@com");
+        mockedUser.setPassword("hunted2");
+
+        User user = new User();
+        user.setId(1L);
+        user.setEmail("email1a@com");
+        user.setPassword("hunted1");
+
+        Mockito.when(userRepository.findByEmail(any())).thenReturn(mockedUser);
+
+        Assertions.assertThrows(UserNotFoundException.class, () -> {
+            userService.login(user);
+        });
+    }
 }

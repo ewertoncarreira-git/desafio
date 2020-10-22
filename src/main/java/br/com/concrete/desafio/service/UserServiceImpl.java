@@ -42,9 +42,7 @@ public class UserServiceImpl implements UserService {
     public User login(User user) {
         User userByEmail = userRepository.findByEmail(user.getEmail());
 
-        boolean isNotValidPassword = !isValidPassword(user.getPassword(), userByEmail.getPassword());
-
-        if (userByEmail == null || isNotValidPassword) {
+        if (userByEmail == null || !isValidPassword(user.getPassword(), userByEmail.getPassword())) {
             throw new UserNotFoundException("Usuário e/ou senha inválidos");
         }
 
