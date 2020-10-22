@@ -8,6 +8,7 @@
 ### Endpoints:
 
 /users
+
 Efetua o cadastro de usuarios, efetuando as validações necessárias
 recebe campos e lista de objetos no seguinte formato:
 
@@ -24,6 +25,7 @@ recebe campos e lista de objetos no seguinte formato:
 } 
 
 /login
+
 Efetuar o login o usuario, recebe um objeto com email e senha e efetua as devidas validações.
 
 {         
@@ -32,6 +34,7 @@ Efetuar o login o usuario, recebe um objeto com email e senha e efetua as devida
 } 
 
 /users/1
+
 Acessa o perfil do usuario via token.
 Token repassado no Header do documento.
 
