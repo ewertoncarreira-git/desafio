@@ -20,4 +20,22 @@ public class RestExceptionHandler {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorMessage);
     }
 
+    @ExceptionHandler(InvalidEmailException.class)
+    public ResponseEntity<ErrorMessage> handlerInvalidEmailException(InvalidEmailException invalidEmailException) {
+        ErrorMessage errorMessage = new ErrorMessage(invalidEmailException.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorMessage);
+    }
+
+    @ExceptionHandler(InvalidNameException.class)
+    public ResponseEntity<ErrorMessage> handlerInvalidNameException(InvalidNameException invalidNameException) {
+        ErrorMessage errorMessage = new ErrorMessage(invalidNameException.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorMessage);
+    }
+
+    @ExceptionHandler(InvalidPasswordException.class)
+    public ResponseEntity<ErrorMessage> handlerInvalidPasswordException(InvalidPasswordException invalidPasswordException) {
+        ErrorMessage errorMessage = new ErrorMessage(invalidPasswordException.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorMessage);
+    }
+
 }

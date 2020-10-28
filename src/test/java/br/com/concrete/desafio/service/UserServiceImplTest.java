@@ -1,5 +1,8 @@
 package br.com.concrete.desafio.service;
 
+import br.com.concrete.desafio.handler.InvalidEmailException;
+import br.com.concrete.desafio.handler.InvalidNameException;
+import br.com.concrete.desafio.handler.InvalidPasswordException;
 import br.com.concrete.desafio.handler.UserNotFoundException;
 import br.com.concrete.desafio.model.Phone;
 import br.com.concrete.desafio.model.User;
@@ -26,8 +29,6 @@ class UserServiceImplTest {
     @Autowired
     private UserService userService;
 
-//    private java.util.Optional<User> Optional;
-
     @Test
     public void deveValidarUsuarioRetornadoQuandoSalvoComSucesso() {
         Phone phone = new Phone();
@@ -38,7 +39,7 @@ class UserServiceImplTest {
 
         User user = new User(
                 "Ewerton Carreira"
-                , "ewerton.l.carreira@com"
+                , "ewerton@carreira.com"
                 , "hunter2"
                 , LocalDateTime.now()
                 , LocalDateTime.now()
@@ -57,6 +58,156 @@ class UserServiceImplTest {
     }
 
     @Test
+    public void deveLancarInvalidEmailExceptionQuandoEmailForNulo() {
+        Phone phone = new Phone();
+        phone.setDdd("91");
+        phone.setNumber("2222-3333");
+        ArrayList<Phone> phoneList = new ArrayList<>();
+        phoneList.add(phone);
+
+        User user = new User(
+                "Ewerton Carreira"
+                , null
+                , "hunter2"
+                , LocalDateTime.now()
+                , LocalDateTime.now()
+                , LocalDateTime.now()
+                , phoneList
+                , "12345776iuoidjjhjdgsduyfib7868776%&$%#nkjGH"
+        );
+        user.setId(1L);
+
+        Assertions.assertThrows(InvalidEmailException.class, () -> {
+            userService.save(user);
+        });
+    }
+
+    @Test
+    public void deveLancarInvalidEmailExceptionQuandoEmailForVazio() {
+        Phone phone = new Phone();
+        phone.setDdd("91");
+        phone.setNumber("2222-3333");
+        ArrayList<Phone> phoneList = new ArrayList<>();
+        phoneList.add(phone);
+
+        User user = new User(
+                "Ewerton Carreira"
+                , ""
+                , "hunter2"
+                , LocalDateTime.now()
+                , LocalDateTime.now()
+                , LocalDateTime.now()
+                , phoneList
+                , "12345776iuoidjjhjdgsduyfib7868776%&$%#nkjGH"
+        );
+        user.setId(1L);
+
+        Assertions.assertThrows(InvalidEmailException.class, () -> {
+            userService.save(user);
+        });
+    }
+
+    @Test
+    public void deveLancarInvalidNameExceptionQuandoNomeForNulo() {
+        Phone phone = new Phone();
+        phone.setDdd("91");
+        phone.setNumber("2222-3333");
+        ArrayList<Phone> phoneList = new ArrayList<>();
+        phoneList.add(phone);
+
+        User user = new User(
+                null
+                , "ewerton@carreira.com"
+                , "hunter2"
+                , LocalDateTime.now()
+                , LocalDateTime.now()
+                , LocalDateTime.now()
+                , phoneList
+                , "12345776iuoidjjhjdgsduyfib7868776%&$%#nkjGH"
+        );
+        user.setId(1L);
+
+        Assertions.assertThrows(InvalidNameException.class, () -> {
+            userService.save(user);
+        });
+    }
+
+    @Test
+    public void deveLancarInvalidNameExceptionQuandoNomeForVazio() {
+        Phone phone = new Phone();
+        phone.setDdd("91");
+        phone.setNumber("2222-3333");
+        ArrayList<Phone> phoneList = new ArrayList<>();
+        phoneList.add(phone);
+
+        User user = new User(
+                ""
+                , "ewerton@carreira.com"
+                , "hunter2"
+                , LocalDateTime.now()
+                , LocalDateTime.now()
+                , LocalDateTime.now()
+                , phoneList
+                , "12345776iuoidjjhjdgsduyfib7868776%&$%#nkjGH"
+        );
+        user.setId(1L);
+
+        Assertions.assertThrows(InvalidNameException.class, () -> {
+            userService.save(user);
+        });
+    }
+
+    @Test
+    public void deveLancarInvalidPasswordExceptionQuandoSenhaForNulo() {
+        Phone phone = new Phone();
+        phone.setDdd("91");
+        phone.setNumber("2222-3333");
+        ArrayList<Phone> phoneList = new ArrayList<>();
+        phoneList.add(phone);
+
+        User user = new User(
+                "Ewerton Carreira"
+                , "ewerton@carreira.com"
+                , null
+                , LocalDateTime.now()
+                , LocalDateTime.now()
+                , LocalDateTime.now()
+                , phoneList
+                , "12345776iuoidjjhjdgsduyfib7868776%&$%#nkjGH"
+        );
+        user.setId(1L);
+
+        Assertions.assertThrows(InvalidPasswordException.class, () -> {
+            userService.save(user);
+        });
+    }
+
+    @Test
+    public void deveLancarInvalidPasswordExceptionQuandoSenhaForVazio() {
+        Phone phone = new Phone();
+        phone.setDdd("91");
+        phone.setNumber("2222-3333");
+        ArrayList<Phone> phoneList = new ArrayList<>();
+        phoneList.add(phone);
+
+        User user = new User(
+                "Ewerton Carreira"
+                , "ewerton@carreira.com"
+                , ""
+                , LocalDateTime.now()
+                , LocalDateTime.now()
+                , LocalDateTime.now()
+                , phoneList
+                , "12345776iuoidjjhjdgsduyfib7868776%&$%#nkjGH"
+        );
+        user.setId(1L);
+
+        Assertions.assertThrows(InvalidPasswordException.class, () -> {
+            userService.save(user);
+        });
+    }
+
+    @Test
     public void deveLancarRuntimeExceptionQuandoEmailJaCadastrado() {
         Phone phone = new Phone();
         phone.setDdd("91");
@@ -66,7 +217,7 @@ class UserServiceImplTest {
 
         User user = new User(
                 "Ewerton Carreira"
-                , "ewerton.l.carreira@.com"
+                , "ewerton@carreira.com"
                 , "hunter2"
                 , LocalDateTime.now()
                 , LocalDateTime.now()

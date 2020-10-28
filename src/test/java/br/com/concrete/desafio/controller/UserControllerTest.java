@@ -1,5 +1,6 @@
 package br.com.concrete.desafio.controller;
 
+import br.com.concrete.desafio.handler.InvalidEmailException;
 import br.com.concrete.desafio.model.Phone;
 import br.com.concrete.desafio.model.User;
 import br.com.concrete.desafio.service.UserService;
@@ -65,6 +66,82 @@ public class UserControllerTest {
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.name").value("João da Silva"))
                 .andExpect(jsonPath("$.email").value("joao@silva.org"));
+
+    }
+
+    @Test
+    public void deveRetornarStatusCode400QuandoEmailForNulo() throws Exception {
+        String userJSON = "{\n" +
+                "        \"name\": \"João da Silva\",\n" +
+                "        \"email\": null,\n" +
+                "        \"password\": \"hunter2\",\n" +
+                "        \"phones\": [\n" +
+                "            {\n" +
+                "                \"number\": \"987654321\",\n" +
+                "                \"ddd\": \"21\"\n" +
+                "            }\n" +
+                "        ]\n" +
+                "    }";
+
+        Phone phone = new Phone();
+        phone.setNumber("2222-3333");
+        phone.setDdd("91");
+        ArrayList<Phone> phoneList = new ArrayList<>();
+        phoneList.add(phone);
+
+        User user = new User();
+        user.setName("João da Silva");
+        user.setEmail("joao@silva.org");
+        user.setPassword("hunter2");
+        user.setPhones(phoneList);
+
+        Mockito.when(userService.save(any())).thenThrow(InvalidEmailException.class);
+
+        MockHttpServletRequestBuilder request = post("/users")
+                .content(userJSON)
+                .contentType(MediaType.APPLICATION_JSON);
+
+        mockMvc
+                .perform(request)
+                .andExpect(status().isBadRequest());
+
+    }
+
+    @Test
+    public void deveRetornarStatusCode400QuandoEmailForVazio() throws Exception {
+        String userJSON = "{\n" +
+                "        \"name\": \"João da Silva\",\n" +
+                "        \"email\": \"\",\n" +
+                "        \"password\": \"hunter2\",\n" +
+                "        \"phones\": [\n" +
+                "            {\n" +
+                "                \"number\": \"987654321\",\n" +
+                "                \"ddd\": \"21\"\n" +
+                "            }\n" +
+                "        ]\n" +
+                "    }";
+
+        Phone phone = new Phone();
+        phone.setNumber("2222-3333");
+        phone.setDdd("91");
+        ArrayList<Phone> phoneList = new ArrayList<>();
+        phoneList.add(phone);
+
+        User user = new User();
+        user.setName("João da Silva");
+        user.setEmail("joao@silva.org");
+        user.setPassword("hunter2");
+        user.setPhones(phoneList);
+
+        Mockito.when(userService.save(any())).thenThrow(InvalidEmailException.class);
+
+        MockHttpServletRequestBuilder request = post("/users")
+                .content(userJSON)
+                .contentType(MediaType.APPLICATION_JSON);
+
+        mockMvc
+                .perform(request)
+                .andExpect(status().isBadRequest());
 
     }
 

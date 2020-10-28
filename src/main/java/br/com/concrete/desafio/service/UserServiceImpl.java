@@ -1,5 +1,8 @@
 package br.com.concrete.desafio.service;
 
+import br.com.concrete.desafio.handler.InvalidEmailException;
+import br.com.concrete.desafio.handler.InvalidNameException;
+import br.com.concrete.desafio.handler.InvalidPasswordException;
 import br.com.concrete.desafio.handler.UserNotFoundException;
 import br.com.concrete.desafio.model.Phone;
 import br.com.concrete.desafio.model.User;
@@ -21,6 +24,18 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User save(User user) {
+        if (user.getName() == null || user.getName().isEmpty()) {
+            throw new InvalidNameException("Informe um nome valido!");
+        }
+
+        if (user.getPassword() == null || user.getPassword().isEmpty()) {
+            throw new InvalidPasswordException("Informe uma senha valida!");
+        }
+
+        if (user.getEmail() == null || user.getEmail().isEmpty()) {
+            throw new InvalidEmailException("Informe um e-mail valido!");
+        }
+
         if (userRepository.existsByEmail(user.getEmail())) {
             throw new RuntimeException("E-mail já existente");
         }
