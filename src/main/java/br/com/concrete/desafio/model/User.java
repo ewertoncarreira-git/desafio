@@ -1,7 +1,7 @@
 package br.com.concrete.desafio.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -19,9 +19,11 @@ public class User {
     private String name;
     private String email;
     private String password;
+
+    @CreationTimestamp
     private LocalDateTime created;
     private LocalDateTime modified;
-    private LocalDateTime last_login;
+    private LocalDateTime lastLogin;
     private String token;
 
     @OneToMany(mappedBy = "user")
@@ -32,14 +34,14 @@ public class User {
 
     }
 
-    public User( String name, String email, String password, LocalDateTime created
+    public User(String name, String email, String password, LocalDateTime created
             , LocalDateTime modified, LocalDateTime last_login, String token) {
         this.name = name;
         this.email = email;
         this.password = password;
         this.created = created;
         this.modified = modified;
-        this.last_login = last_login;
+        this.lastLogin = last_login;
         this.token = token;
     }
 
@@ -51,7 +53,7 @@ public class User {
         this.password = password;
         this.created = created;
         this.modified = modified;
-        this.last_login = last_login;
+        this.lastLogin = last_login;
         this.phones = phones;
         this.token = token;
     }
@@ -104,12 +106,12 @@ public class User {
         this.modified = modified;
     }
 
-    public LocalDateTime getLast_login() {
-        return last_login;
+    public LocalDateTime getLastLogin() {
+        return lastLogin;
     }
 
-    public void setLast_login(LocalDateTime last_login) {
-        this.last_login = last_login;
+    public void setLastLogin(LocalDateTime lastLogin) {
+        this.lastLogin = lastLogin;
     }
 
     public List<Phone> getPhones() {
@@ -127,4 +129,6 @@ public class User {
     public void setToken(String token) {
         this.token = token;
     }
+
+
 }

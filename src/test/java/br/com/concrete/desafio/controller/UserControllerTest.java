@@ -12,12 +12,12 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 
+import java.util.ArrayList;
+
 import static org.mockito.ArgumentMatchers.any;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
-import java.util.ArrayList;
 
 @WebMvcTest
 public class UserControllerTest {
@@ -67,6 +67,5 @@ public class UserControllerTest {
                 .andExpect(jsonPath("$.email").value("joao@silva.org"));
 
     }
-
 
 }

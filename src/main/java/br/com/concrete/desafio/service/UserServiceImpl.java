@@ -32,7 +32,7 @@ public class UserServiceImpl implements UserService {
         user.setPassword(passwordEncoder(user.getPassword()));
         user.setCreated(LocalDateTime.now());
         user.setModified(LocalDateTime.now());
-        user.setLast_login(LocalDateTime.now());
+        user.setLastLogin(LocalDateTime.now());
         user.setToken(UUID.randomUUID().toString());
 
         return userRepository.save(user);
@@ -46,7 +46,7 @@ public class UserServiceImpl implements UserService {
             throw new UserNotFoundException("Usuário e/ou senha inválidos");
         }
 
-        userByEmail.setLast_login(LocalDateTime.now());
+        userByEmail.setLastLogin(LocalDateTime.now());
         userByEmail.setToken(UUID.randomUUID().toString());
 
         return userRepository.save(userByEmail);
@@ -60,7 +60,7 @@ public class UserServiceImpl implements UserService {
             throw new UserNotFoundException("Não autorizado");
         }
 
-        Duration durationSession = Duration.between(userById.get().getLast_login(), LocalDateTime.now());
+        Duration durationSession = Duration.between(userById.get().getLastLogin(), LocalDateTime.now());
 
         if (durationSession.getSeconds() / 60 > 30) {
             throw new UserNotFoundException("Sessão inválida");

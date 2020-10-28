@@ -100,7 +100,7 @@ class UserServiceImplTest {
     public void deveLancarUserNotFoundExceptionQuandoSessaoInvalida() {
         User user = new User();
         user.setId(1L);
-        user.setLast_login(LocalDateTime.parse("2020-10-21T14:15:50.239"));
+        user.setLastLogin(LocalDateTime.parse("2020-10-21T14:15:50.239"));
         user.setToken("12345776iuoidjjhjdgsduyfib7868776%&$%#nkjGHS");
 
         Mockito.when(userRepository.findById(any())).thenReturn(java.util.Optional.of(user));

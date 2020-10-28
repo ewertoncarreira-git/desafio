@@ -53,7 +53,7 @@ public class LoginControllerTest {
         user.setPassword("hunter2");
         user.setCreated(LocalDateTime.now());
         user.setModified(LocalDateTime.now());
-        user.setLast_login(LocalDateTime.now());
+        user.setLastLogin(LocalDateTime.now());
         user.setToken(UUID.randomUUID().toString());
         user.setPhones(phoneList);
 
