@@ -1,5 +1,6 @@
 package br.com.concrete.desafio.controller;
 
+import br.com.concrete.desafio.dto.request.LoginRequestDTO;
 import br.com.concrete.desafio.model.Phone;
 import br.com.concrete.desafio.model.User;
 import br.com.concrete.desafio.service.UserService;
@@ -36,9 +37,9 @@ public class LoginControllerTest {
 
     @Test
     public void retornoStatusCode200QuandoLogadoComSucesso() throws Exception {
-        User userRequestLogin = new User();
-        userRequestLogin.setEmail("joao@silva.org");
-        userRequestLogin.setPassword("hunter2");
+        LoginRequestDTO loginRequestDTO = new LoginRequestDTO();
+        loginRequestDTO.setEmail("joao@silva.org");
+        loginRequestDTO.setPassword("hunter2");
 
         Phone phone = new Phone();
         phone.setNumber("2222-3333");
@@ -57,10 +58,10 @@ public class LoginControllerTest {
         user.setToken(UUID.randomUUID().toString());
         user.setPhones(phoneList);
 
-        Mockito.when(userService.login(any())).thenReturn(user);
+        Mockito.when(userService.login(any(), any())).thenReturn(user);
 
         MockHttpServletRequestBuilder request = post("/login")
-                .content(objectMapper.writeValueAsString(userRequestLogin))
+                .content(objectMapper.writeValueAsString(loginRequestDTO))
                 .contentType(MediaType.APPLICATION_JSON);
 
         mockMvc

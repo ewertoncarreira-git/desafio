@@ -1,5 +1,6 @@
 package br.com.concrete.desafio.controller;
 
+import br.com.concrete.desafio.dto.request.LoginRequestDTO;
 import br.com.concrete.desafio.dto.response.UserResponseDTO;
 import br.com.concrete.desafio.model.User;
 import br.com.concrete.desafio.service.UserService;
@@ -20,9 +21,9 @@ public class LoginController {
     private UserService userService;
 
     @PostMapping
-    public ResponseEntity<UserResponseDTO> user(@RequestBody User user){
+    public ResponseEntity<UserResponseDTO> user(@RequestBody LoginRequestDTO dto){
         ModelMapper mapper = new ModelMapper();
-        User loginUser = userService.login(user);
+        User loginUser = userService.login(dto.getEmail(), dto.getPassword());
         UserResponseDTO userResponse = mapper.map(loginUser, UserResponseDTO.class);
         return ResponseEntity.status(HttpStatus.OK).body(userResponse);
     }

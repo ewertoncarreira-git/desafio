@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.validation.Valid;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -23,17 +24,18 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
 
     @Override
+//    public User save(@Valid User user) {
     public User save(User user) {
         if (user.getName() == null || user.getName().isEmpty()) {
-            throw new InvalidNameException("Informe um nome valido!");
+            throw new InvalidNameException("Informe um nome válido!");
         }
 
         if (user.getPassword() == null || user.getPassword().isEmpty()) {
-            throw new InvalidPasswordException("Informe uma senha valida!");
+            throw new InvalidPasswordException("Informe uma senha válida!");
         }
 
         if (user.getEmail() == null || user.getEmail().isEmpty()) {
-            throw new InvalidEmailException("Informe um e-mail valido!");
+            throw new InvalidEmailException("Informe um e-mail válido!");
         }
 
         if (userRepository.existsByEmail(user.getEmail())) {
@@ -45,23 +47,19 @@ public class UserServiceImpl implements UserService {
         }
 
         user.setPassword(passwordEncoder(user.getPassword()));
-        user.setCreated(LocalDateTime.now());
-        user.setModified(LocalDateTime.now());
-        user.setLastLogin(LocalDateTime.now());
         user.setToken(UUID.randomUUID().toString());
 
         return userRepository.save(user);
     }
 
     @Override
-    public User login(User user) {
-        User userByEmail = userRepository.findByEmail(user.getEmail());
+    public User login(String email, String password) {
+        User userByEmail = userRepository.findByEmail(email);
 
-        if (userByEmail == null || !isValidPassword(user.getPassword(), userByEmail.getPassword())) {
+        if (userByEmail == null || !isValidPassword(password, userByEmail.getPassword())) {
             throw new UserNotFoundException("Usuário e/ou senha inválidos");
         }
 
-        userByEmail.setLastLogin(LocalDateTime.now());
         userByEmail.setToken(UUID.randomUUID().toString());
 
         return userRepository.save(userByEmail);

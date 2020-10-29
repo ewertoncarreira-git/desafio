@@ -13,6 +13,7 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -58,7 +59,7 @@ class UserServiceImplTest {
     }
 
     @Test
-    public void deveLancarInvalidEmailExceptionQuandoEmailForNulo() {
+    public void deveLancarInvalidEmailExceptionQuandoEmailForNulo(){
         Phone phone = new Phone();
         phone.setDdd("91");
         phone.setNumber("2222-3333");
@@ -80,6 +81,10 @@ class UserServiceImplTest {
         Assertions.assertThrows(InvalidEmailException.class, () -> {
             userService.save(user);
         });
+
+//        Assertions.assertThrows(MethodArgumentNotValidException.class, () -> {
+//            userService.save(user);
+//        });
     }
 
     @Test
@@ -303,15 +308,10 @@ class UserServiceImplTest {
 
     @Test
     public void deveLancarUserNotFoundExceptionQuandoEmailNaoExistir() {
-        User user = new User();
-        user.setId(1L);
-        user.setEmail("email1a@com");
-        user.setPassword("hunted2");
-
         Mockito.when(userRepository.findByEmail(any())).thenReturn(null);
 
         Assertions.assertThrows(UserNotFoundException.class, () -> {
-            userService.login(user);
+            userService.login("email1a@com", "hunted2");
         });
     }
 
@@ -322,15 +322,10 @@ class UserServiceImplTest {
         mockedUser.setEmail("email1a@com");
         mockedUser.setPassword("hunted2");
 
-        User user = new User();
-        user.setId(1L);
-        user.setEmail("email1a@com");
-        user.setPassword("hunted1");
-
         Mockito.when(userRepository.findByEmail(any())).thenReturn(mockedUser);
 
         Assertions.assertThrows(UserNotFoundException.class, () -> {
-            userService.login(user);
+            userService.login("email1a@com", "hunted2");
         });
     }
 }

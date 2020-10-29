@@ -2,10 +2,15 @@ package br.com.concrete.desafio.model;
 
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "user")
@@ -16,14 +21,26 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+//    @NotBlank(message = "Informe um nome válido!")
+//    @NotNull(message = "Informe um nome válido!")
     private String name;
+
+//    @Email(message = "Informe um e-mail válido!")
     private String email;
+
+//    @NotBlank(message = "Informe uma senha válida!")
+//    @NotNull(message = "Informe uma senha válida!")
     private String password;
 
     @CreationTimestamp
     private LocalDateTime created;
+
+    @UpdateTimestamp
     private LocalDateTime modified;
+
+    @UpdateTimestamp
     private LocalDateTime lastLogin;
+
     private String token;
 
     @OneToMany(mappedBy = "user")
@@ -130,5 +147,33 @@ public class User {
         this.token = token;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (!(obj instanceof User))
+            return false;
+        User other = (User) obj;
+        return getEmail().equals(other.getEmail());
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(getEmail());
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", created=" + created +
+                ", modified=" + modified +
+                ", lastLogin=" + lastLogin +
+                ", token='" + token + '\'' +
+                ", phones=" + phones +
+                '}';
+    }
 }
