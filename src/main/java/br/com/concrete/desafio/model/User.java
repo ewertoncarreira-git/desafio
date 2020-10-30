@@ -23,13 +23,12 @@ public class User {
 
 //    @NotBlank(message = "Informe um nome válido!")
 //    @NotNull(message = "Informe um nome válido!")
+//    @NotNull(message = "Informe um nome válido!")
     private String name;
 
-//    @Email(message = "Informe um e-mail válido!")
     private String email;
 
 //    @NotBlank(message = "Informe uma senha válida!")
-//    @NotNull(message = "Informe uma senha válida!")
     private String password;
 
     @CreationTimestamp
@@ -47,8 +46,8 @@ public class User {
     @Cascade(org.hibernate.annotations.CascadeType.ALL)
     private List<Phone> phones;
 
-    public User() {
 
+    public User() {
     }
 
     public User(String name, String email, String password, LocalDateTime created

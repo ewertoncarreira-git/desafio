@@ -1,10 +1,16 @@
 package br.com.concrete.desafio.dto.request;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 public class UserRequestDTO {
     private String name;
+
+    @NotNull(message = "Informe um e-mail válido!!!")
+    @Email(message = "Informe um e-mail válido!!!")
     private String email;
+
     private String password;
     private List<PhoneRequestDTO> phones;
 

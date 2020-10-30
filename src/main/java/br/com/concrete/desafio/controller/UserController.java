@@ -8,8 +8,10 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 @RestController
@@ -20,7 +22,7 @@ public class UserController {
     private UserService userService;
 
     @PostMapping
-    public ResponseEntity<UserResponseDTO> user(@RequestBody UserRequestDTO dto) {
+    public ResponseEntity<UserResponseDTO> user(@Valid @RequestBody UserRequestDTO dto){
         ModelMapper mapper = new ModelMapper();
         User user = mapper.map(dto, User.class);
         User createUser = userService.save(user);

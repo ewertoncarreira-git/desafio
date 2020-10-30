@@ -78,13 +78,13 @@ class UserServiceImplTest {
         );
         user.setId(1L);
 
-        Assertions.assertThrows(InvalidEmailException.class, () -> {
-            userService.save(user);
-        });
-
-//        Assertions.assertThrows(MethodArgumentNotValidException.class, () -> {
+//        Assertions.assertThrows(InvalidEmailException.class, () -> {
 //            userService.save(user);
 //        });
+
+        Assertions.assertThrows(MethodArgumentNotValidException.class, () -> {
+            userService.save(user);
+        });
     }
 
     @Test
