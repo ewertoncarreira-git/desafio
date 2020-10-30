@@ -1,6 +1,7 @@
 package br.com.concrete.desafio.dto.request;
 
 public class PhoneRequestDTO {
+
     private String number;
     private String ddd;
 

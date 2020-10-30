@@ -5,9 +5,6 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
@@ -21,14 +18,8 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-//    @NotBlank(message = "Informe um nome válido!")
-//    @NotNull(message = "Informe um nome válido!")
-//    @NotNull(message = "Informe um nome válido!")
     private String name;
-
     private String email;
-
-//    @NotBlank(message = "Informe uma senha válida!")
     private String password;
 
     @CreationTimestamp
@@ -45,7 +36,6 @@ public class User {
     @OneToMany(mappedBy = "user")
     @Cascade(org.hibernate.annotations.CascadeType.ALL)
     private List<Phone> phones;
-
 
     public User() {
     }

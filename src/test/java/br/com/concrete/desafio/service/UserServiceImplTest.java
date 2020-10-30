@@ -13,7 +13,6 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -59,7 +58,7 @@ class UserServiceImplTest {
     }
 
     @Test
-    public void deveLancarInvalidEmailExceptionQuandoEmailForNulo(){
+    public void deveLancarInvalidEmailExceptionQuandoEmailForNulo() {
         Phone phone = new Phone();
         phone.setDdd("91");
         phone.setNumber("2222-3333");
@@ -78,11 +77,7 @@ class UserServiceImplTest {
         );
         user.setId(1L);
 
-//        Assertions.assertThrows(InvalidEmailException.class, () -> {
-//            userService.save(user);
-//        });
-
-        Assertions.assertThrows(MethodArgumentNotValidException.class, () -> {
+        Assertions.assertThrows(InvalidEmailException.class, () -> {
             userService.save(user);
         });
     }

@@ -21,7 +21,7 @@ public class LoginController {
     private UserService userService;
 
     @PostMapping
-    public ResponseEntity<UserResponseDTO> user(@RequestBody LoginRequestDTO dto){
+    public ResponseEntity<UserResponseDTO> user(@RequestBody LoginRequestDTO dto) {
         ModelMapper mapper = new ModelMapper();
         User loginUser = userService.login(dto.getEmail(), dto.getPassword());
         UserResponseDTO userResponse = mapper.map(loginUser, UserResponseDTO.class);

@@ -1,7 +1,5 @@
 package br.com.concrete.desafio.dto.request;
 
-import java.util.List;
-
 public class LoginRequestDTO {
 
     private String email;

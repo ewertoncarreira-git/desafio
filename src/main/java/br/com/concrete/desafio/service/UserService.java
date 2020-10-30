@@ -2,10 +2,11 @@ package br.com.concrete.desafio.service;
 
 import br.com.concrete.desafio.model.User;
 
-public interface UserService  {
-        User save(User user);
+public interface UserService {
 
-        User login(String email, String password);
+    User save(User user);
 
-        User validUser(Long id, String token);
+    User login(String email, String password);
+
+    User validUser(Long id, String token);
 }

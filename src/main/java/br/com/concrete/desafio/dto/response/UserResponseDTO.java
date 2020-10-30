@@ -7,10 +7,9 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public class UserResponseDTO {
+
     private Long id;
-
     private String name;
-
     private String email;
 
     @JsonFormat(pattern = "dd/MM/yyyy")
@@ -24,7 +23,6 @@ public class UserResponseDTO {
     private LocalDateTime lastLogin;
 
     private String token;
-
     private List<PhoneResponseDTO> phones;
 
     public Long getId() {

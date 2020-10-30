@@ -95,7 +95,7 @@ public class UserControllerTest {
         user.setPassword("hunter2");
         user.setPhones(phoneList);
 
-//        Mockito.when(userService.save(any())).thenThrow(InvalidEmailException.class);
+        Mockito.when(userService.save(any())).thenThrow(InvalidEmailException.class);
 
         MockHttpServletRequestBuilder request = post("/users")
                 .content(userJSON)
